@@ -74,3 +74,6 @@ $RECYCLE.BIN/
 # Windows shortcuts
 *.lnk
 *.txt
+*.xml
+.idea/Leetcode.cpp.iml
+*.name
