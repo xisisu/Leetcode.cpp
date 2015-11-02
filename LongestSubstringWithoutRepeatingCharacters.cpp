@@ -47,8 +47,33 @@ public:
         return res;
     }
 
-    // dynamic programming
     int lengthOfLongestSubstring_2(std::string s) { // 16 ms
+        int n = s.size();
+        if (0 == n || 1 == n) { return n; }
+
+        bool exist[256];
+        memset(exist, false, 256);
+
+        int start = 0, res = 0, cur = 0;
+        while (cur < s.size()) {
+            if (exist[s[cur]]) {
+                res = std::max(res, cur-start);
+                while (s[cur] != s[start]) {
+                    exist[s[start]] = false;
+                    ++start;
+                }
+                ++start; ++cur;
+            } else {
+                exist[s[cur]] = true;
+                ++cur;
+            }
+        }
+        res = std::max(res, n - start);
+        return res;
+    }
+
+    // dynamic programming
+    int lengthOfLongestSubstring_3(std::string s) { // 16 ms
         if (s == "") { return 0; }
         int last_appearance[256];
         memset(last_appearance, -1, sizeof(last_appearance));
