@@ -24,7 +24,7 @@
 
 class Solution {
 public:
-    std::string convert(std::string s, int numRows) { // 16 ms
+    std::string convert(std::string s, int numRows) { // 12 ms
         int n = s.size();
         if (n <= numRows || numRows < 2) { return s; }
         char res[n];
