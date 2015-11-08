@@ -12,7 +12,7 @@
 
 class Solution {
 public:
-    std::string longestCommonPrefix(std::vector<std::string>& strs) {
+    std::string longestCommonPrefix(std::vector<std::string>& strs) { // 8ms
         if (strs.size() == 0) { return ""; }
         auto res = strs[0];
         for (auto i = 1; i < strs.size(); ++i) {
