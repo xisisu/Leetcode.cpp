@@ -23,12 +23,7 @@
 #include <set>
 #include <map>
 #include <algorithm>
-
-struct ListNode {
-    int val;
-    ListNode *next;
-    ListNode(int x) : val(x), next(NULL) {}
-};
+#include "Common.h"
 
 class Solution {
 public:
@@ -71,29 +66,6 @@ public:
         return res;
     }
 };
-
-ListNode* constructListNode(const std::vector<int>& list)
-{
-    ListNode *res = nullptr;
-    ListNode *cur = nullptr;
-    for (const auto& item: list) {
-        ListNode *tmp = new ListNode(item);
-        if (!res) { // first node
-            res = tmp;
-        } else {
-            cur->next = tmp;
-        }
-        cur = tmp;
-    }
-    return res;
-}
-
-void printListNode(const ListNode* input) {
-    for (auto item = input; item != nullptr; item = item->next) {
-        std::cout << item->val << " -> ";
-    }
-    std::cout << "nullptr" << std::endl;
-}
 
 int main() {
     Solution sol;
