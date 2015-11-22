@@ -40,5 +40,14 @@ int main() {
         std::cout << item << " ";
     }
     std::cout << std::endl;
+
+    std::vector<int> test2 = {1,5,8,7,6,4,3}; // 1587643 -> 1634578
+    sol.nextPermutation(test2);
+    for (const auto & item : test2) {
+        std::cout << item << " ";
+    }
+    std::cout << std::endl;
+
+    std::cout << std::endl;
     return 0;
 }
