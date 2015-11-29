@@ -89,6 +89,20 @@ public:
 
         return res;
     }
+
+    void helper(TreeNode* root, int level, std::vector<std::vector<int>>& res) {
+        if (!root) { return; }
+        while (res.size() < level) { res.push_back(std::vector<int>()); } // pushing empty level
+        res[level-1].push_back(root->val);
+        helper(root->left, level+1, res);
+        helper(root->right, level+1, res);
+    }
+
+    std::vector<std::vector<int>> levelOrder_3(TreeNode* root) { // 8 ms
+        std::vector<std::vector<int>> res;
+        helper(root, 1, res);
+        return res;
+    }
 };
 
 int main() {
