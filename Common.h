@@ -10,6 +10,26 @@
 #include <queue>
 
 /*
+ * Common helper functions
+ */
+
+std::string to_string(int val){
+    if (val == 0) { return "0"; }
+    std::string res;
+    bool positive = true;
+    if (val < 0) {
+        val = -val;
+        positive = false;
+    }
+    while (val > 0) {
+        res = std::string(1, '0'+val%10) + res;
+        val /= 10;
+    }
+    return positive ? res : "-" + res;
+}
+
+
+/*
  * Linked list related code
  */
 
