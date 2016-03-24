@@ -2,8 +2,7 @@
 // Created by Sisu on 11/8/2015.
 //
 
-#ifndef LEETCODE_CPP_COMMON_H
-#define LEETCODE_CPP_COMMON_H
+#pragma once
 
 #include <vector>
 #include <iostream>
@@ -121,5 +120,3 @@ void printFullTree(TreeNode* root)
         }
     }
 }
-
-#endif //LEETCODE_CPP_COMMON_H
