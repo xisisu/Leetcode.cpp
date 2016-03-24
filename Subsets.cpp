@@ -42,6 +42,30 @@ public:
         helper(nums, 0, std::vector<int>(), res);
         return res;
     }
+
+public:
+    std::vector<std::vector<int>> subsets2(std::vector<int> const& nums) { // 9 ms
+        /*
+         * simple bit operation, there are 2^n combinations
+         */
+        auto max = std::pow(2, nums.size());
+        std::vector<std::vector<int>> res;
+        std::vector<int> x;
+
+        for (int i = 0; i < max; ++i) {
+            // use the bit representation of cur to push items into res
+            int cur = i, idx = 0;
+            x.clear();
+            while (cur > 0) {
+                if (cur & 0x01) { x.push_back(nums[idx]); }
+                ++idx; cur >>= 1;
+            }
+            std::sort(x.begin(), x.end());
+            res.push_back(x);
+        }
+
+        return res;
+    }
 };
 
 int main() {
@@ -56,11 +80,19 @@ int main() {
 
     std::ostream_iterator<int> out(std::cout, ", ");
     for (auto& test : tests) {
-        auto res = sol.subsets(test);
         std::cout << "input: ";
         std::copy(test.begin(), test.end(), out);
         std::cout << std::endl;
+
+        auto res = sol.subsets(test);
         for (auto& val : res) {
+            std::copy(val.begin(), val.end(), out);
+            std::cout << std::endl;
+        }
+        std::cout << std::endl;
+
+        auto res2 = sol.subsets2(test);
+        for (auto& val : res2) {
             std::copy(val.begin(), val.end(), out);
             std::cout << std::endl;
         }
