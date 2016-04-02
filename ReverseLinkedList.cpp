@@ -43,6 +43,19 @@ public:
         head->next = nullptr;
         return res;
     }
+
+    ListNode* reverseList_3(ListNode* head) { // 8 ms
+        if (!head) { return head; }
+        ListNode* pre = nullptr;
+        auto cur = head;
+        while (cur) {
+            auto nxt = cur->next;
+            cur->next = pre;
+            pre = cur;
+            cur = nxt;
+        }
+        return pre;
+    }
 };
 
 
@@ -53,5 +66,7 @@ int main() {
     printListNode(a);
     auto b = sol.reverseList_2(a);
     printListNode(b);
+    auto c = sol.reverseList_3(b);
+    printListNode(c);
     return 0;
 }
