@@ -7,6 +7,8 @@
 #include <vector>
 #include <iostream>
 #include <queue>
+#include <iomanip>
+#include <stdlib.h> // for atoi
 
 /*
  * Common helper functions
@@ -98,6 +100,30 @@ TreeNode* constructTreeByLevel(std::vector<int> level)
     return res;
 }
 
+TreeNode* constructTreeBySymbol(std::vector<std::string> const& tree) {
+    if (tree.empty() || tree[0] == "#") { return nullptr; }
+
+    TreeNode* root = new TreeNode(atoi(tree[0].c_str()));
+    std::queue<TreeNode*> queue;
+    queue.push(root);
+    int i = 1;
+    while (i < tree.size()) {
+        auto cur = queue.front();
+        queue.pop();
+        if (tree[i] != "#") {
+            cur->left = new TreeNode(atoi(tree[i].c_str()));
+            queue.push(cur->left);
+        }
+        ++i;
+        if (tree[i] != "#" && i < tree.size()) {
+            cur->right = new TreeNode(atoi(tree[i].c_str()));
+            queue.push(cur->right);
+        }
+        ++i;
+    }
+    return root;
+}
+
 // assumes this is a full tree!!!
 void printFullTree(TreeNode* root)
 {
@@ -119,4 +145,23 @@ void printFullTree(TreeNode* root)
             else { queue.push(nullptr); }
         }
     }
+}
+
+/*
+ * pretty print a binary tree
+ */
+void prettyPrintTree(TreeNode* root, std::vector<std::string> s = {})
+{
+    for (auto const& val : s) {
+        std::cout << val;
+    }
+    if (!s.empty()) { std::cout << "__"; }
+    if (!root) { std::cout << "(#)" << std::endl;  return; }
+
+    std::cout << "(" << root->val << ")" << std::endl;
+    s.push_back("  |");
+    prettyPrintTree(root->left, s);
+    s.pop_back();
+    s.push_back("   ");
+    prettyPrintTree(root->right, s);
 }
