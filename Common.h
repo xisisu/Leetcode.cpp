@@ -152,11 +152,11 @@ void printFullTree(TreeNode* root)
  */
 void prettyPrintTree(TreeNode* root, std::vector<std::string> s = {})
 {
+    if (!root) { return; }
     for (auto const& val : s) {
         std::cout << val;
     }
     if (!s.empty()) { std::cout << "__"; }
-    if (!root) { std::cout << "(#)" << std::endl;  return; }
 
     std::cout << "(" << root->val << ")" << std::endl;
     s.push_back("  |");
