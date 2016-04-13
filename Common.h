@@ -165,3 +165,13 @@ void prettyPrintTree(TreeNode* root, std::vector<std::string> s = {})
     s.push_back("   ");
     prettyPrintTree(root->right, s);
 }
+
+
+/*
+ * Graph related
+ */
+struct UndirectedGraphNode {
+    int label;
+    std::vector<UndirectedGraphNode *> neighbors;
+    UndirectedGraphNode(int x) : label(x) {};
+};
