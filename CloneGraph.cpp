@@ -43,19 +43,22 @@ class Solution {
 private:
     std::unordered_map<UndirectedGraphNode*, UndirectedGraphNode*> globalMap;
 
-public:
-    UndirectedGraphNode *cloneGraph2(UndirectedGraphNode *node) { // kind of cheat, since used global variable, 76 ms
+private:
+    UndirectedGraphNode *cloneGraph2(UndirectedGraphNode *node, bool clearMap) { // kind of cheat, since used global variable, 76 ms
         if (!node) { return nullptr; }
-        if (globalMap.count(node)) { return globalMap[node]; }
+        if (clearMap) { globalMap.clear(); }
 
+        if (globalMap.count(node)) { return globalMap[node]; }
         auto tmp = new UndirectedGraphNode(node->label);
         globalMap[node] = tmp;
-
-        for (auto &val : node->neighbors) {
-            tmp->neighbors.push_back(cloneGraph2(val));
-        }
+        for (auto &val : node->neighbors) { tmp->neighbors.push_back(cloneGraph2(val, false)); }
 
         return tmp;
+    }
+
+public:
+    UndirectedGraphNode *cloneGraph2(UndirectedGraphNode *node) { // kind of cheat, since used global variable, 76 ms
+        return cloneGraph2(node, true);
     }
 
 public:
