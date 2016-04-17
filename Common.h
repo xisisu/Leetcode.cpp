@@ -115,7 +115,7 @@ TreeNode* constructTreeBySymbol(std::vector<std::string> const& tree) {
             queue.push(cur->left);
         }
         ++i;
-        if (tree[i] != "#" && i < tree.size()) {
+        if (i < tree.size() && tree[i] != "#") {
             cur->right = new TreeNode(atoi(tree[i].c_str()));
             queue.push(cur->right);
         }
