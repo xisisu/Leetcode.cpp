@@ -35,8 +35,7 @@ public:
          * 4^n = 2^2n, so count bit and only even bit can be 1
          */
         if (num <= 0) { return false; }
-        if (!set.empty()) { return set.count(num); }
-        initSet();
+        if (set.empty()) { initSet(); }
         return set.count(num);
     }
 
