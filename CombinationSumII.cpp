@@ -51,7 +51,7 @@ private:
             /*
              * note here the solution set will contain duplicate values if candidates[i] == candidates[i+1]
              * for example, if we have {1,1}, select first or second makes the same solution
-             * so we skip all teh same elements here
+             * so we skip all the same elements here
              */
             while (i < candidates.size()-1 && candidates[i] == candidates[i+1]) { ++i; }
         }
