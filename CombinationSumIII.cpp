@@ -92,8 +92,8 @@ public:
 int main() {
     Solution sol;
     std::vector<std::pair<int, int>> tests = {
-//            {1, 9}
-            {2, 7}
+            {1, 9}
+            , {2, 7}
             , {3, 7}
             , {3, 9}
             , {2, 18}
