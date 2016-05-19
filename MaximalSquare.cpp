@@ -20,74 +20,20 @@
 class Solution {
 
 public:
-    int maximalSquare(std::vector<std::vector<char>> const& matrix) { // 20 ms
+    int maximalSquare(std::vector<std::vector<char>> const& matrix) { // 12 ms
         if (matrix.empty() || matrix[0].empty()) { return 0; }
-        /*
-         * row[i][j] means starting from i,j, count to right, number of successive 1s
-         * col[i][j] means starting from i,j, count to down, number of successive 1s
-         */
 
         auto M = matrix.size(), N = matrix[0].size();
-        bool existOnes = false;
-
-        // count rows, also check whether there are '1' in the matrix
-        std::vector<std::vector<int>> row(M, std::vector<int>(N, 0));
-        for (int i = 0; i < M; ++i) {
-            int counter = matrix[i][0] == '1' ? 1 : 0;
-            for (int j = 1; j < N; ++j) {
-                if (matrix[i][j] == '1') { ++counter; }
-                else {
-                    while (counter > 0) {
-                        row[i][j-counter] = counter;
-                        --counter;
-                    }
-                    existOnes = true;
-                }
-            }
-            while (counter > 0) {
-                row[i][N-counter] = counter;
-                --counter;
-                existOnes = true;
-            }
-        }
-
-        if (!existOnes) { return 0; }
-
-        // count cols
-        std::vector<std::vector<int>> col(M, std::vector<int>(N, 0));
-        for (int j = 0; j < N; ++j) {
-            int counter = matrix[0][j] == '1' ? 1 : 0;
-            for (int i = 1; i < M; ++i) {
-                if (matrix[i][j] == '1') { ++counter; }
-                else {
-                    while (counter > 0) {
-                        col[i-counter][j] = counter;
-                        --counter;
-                    }
-                }
-            }
-            while (counter > 0) {
-                col[M-counter][j] = counter;
-                --counter;
-            }
-        }
-
-        // now try to find the maximum length, typical dp problem
+        int res = 0;
         std::vector<std::vector<int>> dp(M, std::vector<int>(N, 0));
         for (int i = M-1; i >= 0; --i) {
             for (int j = N-1; j >= 0; --j) {
-                auto val = std::min(row[i][j], col[i][j]);
+                if (matrix[i][j] == '0') { continue; }
 
-                if (i == M-1 || j == N-1) { dp[i][j] = (val == 0) ? 0 : 1; } // at edges, at most can have square 1
-                else if (val == 0) { dp[i][j] = 0; }
-                else { dp[i][j] = std::min(val, dp[i+1][j+1]+1); }
-            }
-        }
+                if (i == M-1 || j == N-1) { dp[i][j] = matrix[i][j] == '1' ? 1 : 0; }
+                else { dp[i][j] = std::min(std::min(dp[i+1][j+1],dp[i][j+1]),dp[i+1][j]) + 1; }
 
-        int res = 0;
-        for (auto const& row : dp) {
-            for (auto const& val : row) {
-                res = std::max(res, val);
+                res = std::max(res, dp[i][j]);
             }
         }
 
