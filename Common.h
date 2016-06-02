@@ -8,6 +8,7 @@
 #include <iostream>
 #include <queue>
 #include <iomanip>
+#include <stack>
 #include <stdlib.h> // for atoi
 
 /*
@@ -123,6 +124,75 @@ TreeNode* constructTreeBySymbol(std::vector<std::string> const& tree) {
     }
     return root;
 }
+
+std::vector<int> postOrder(TreeNode* root) {
+    if (!root) { return {}; }
+
+    std::vector<int> res;
+    std::stack<TreeNode*> s;
+    TreeNode* pre = nullptr;
+    s.push(root);
+
+    while (!s.empty()) {
+        auto cur = s.top();
+        if (!pre || pre->left == cur || pre->right == cur) {
+            if (cur->left) { s.push(cur->left); }
+            else if (cur->right) { s.push(cur->right); }
+        } else if (cur->left == pre) {
+            if (cur->right) { s.push(cur->right); }
+        } else {
+            res.push_back(cur->val);
+            s.pop();
+        }
+        pre = cur;
+    }
+
+    return res;
+}
+
+std::vector<int> preOrder(TreeNode* root) {
+    if (!root) { return {}; }
+
+    std::vector<int> res;
+    std::stack<TreeNode*> s;
+    auto cur = root;
+
+    while (cur || !s.empty()) {
+        if (cur) {
+            res.push_back(cur->val);
+            if (cur->right) { s.push(cur->right); }
+            cur = cur->left;
+        } else {
+            cur = s.top();
+            s.pop();
+        }
+    }
+
+    return res;
+}
+
+std::vector<int> inOrder(TreeNode* root) {
+    if (!root) { return {}; }
+
+    std::vector<int> res;
+    std::stack<TreeNode *> s;
+    auto cur = root;
+
+    while (cur || !s.empty()) {
+        if (cur) {
+            s.push(cur);
+            cur = cur->left;
+        } else {
+            cur = s.top();
+            s.pop();
+            res.push_back(cur->val);
+            cur = cur->right;
+        }
+    }
+
+    return res;
+}
+
 
 // assumes this is a full tree!!!
 void printFullTree(TreeNode* root)
