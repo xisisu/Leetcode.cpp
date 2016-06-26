@@ -24,16 +24,12 @@ public:
         _sum.clear();
         _sum.resize(nums.size(), 0);
         for (int i = 0; i < nums.size(); ++i) {
-            _sum[i] = (i == 0) ?
-                      nums[0] :
-                      _sum[i-1] + nums[i];
+            _sum[i] = (i == 0) ? nums[0] : _sum[i-1] + nums[i];
         }
     }
 
     int sumRange(int i, int j) {
-        return i == 0 ?
-                _sum[j] :
-               _sum[j] - _sum[i-1];
+        return i == 0 ? _sum[j] : _sum[j] - _sum[i-1];
     }
 
 private:
